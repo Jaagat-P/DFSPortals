@@ -1,0 +1,98 @@
+class Path:
+    eR = 0
+    eC = 0
+    sR = 0
+    sC = 0
+
+    st = []
+
+    @staticmethod
+    def depthFirstSearch(maze):
+        mazeL = len(maze)
+        mazeo = len(maze[0])
+
+        for i in range(mazeL):
+            for a in range(mazeo):
+                if maze[i][a] == 'S':
+                    Path.sC = a
+                    Path.sR = i
+                elif maze[i][a] == 'E':
+                    Path.eC = a
+                    Path.eR = i
+
+        Path.st.append([Path.sR, Path.sC])
+
+        while len(Path.st) != 0:
+            cur = Path.st.pop()
+
+            row = cur[0]
+            column = cur[1]
+
+            if column == Path.eC:
+                if row == Path.eR:
+                    return True
+
+            if row == Path.eR:
+                if column == Path.eC:
+                    return True
+
+            if maze[row][column] == 'C':
+                for d in range(mazeL):
+                    for e in range(mazeo):
+                        if maze[d][e] == 'c':
+                            Path.st.append([d, e])
+
+            if maze[row][column] == 'c':
+                for d in range(mazeL):
+                    for e in range(mazeo):
+                        if maze[d][e] == 'C':
+                            Path.st.append([d, e])
+
+            if maze[row][column] == 'D':
+                for f in range(mazeL):
+                    for g in range(mazeo):
+                        if maze[f][g] == 'd':
+                            Path.st.append([f, g])
+
+            if maze[row][column] == 'A':
+                for i in range(mazeL):
+                    for a in range(mazeo):
+                        if maze[i][a] == 'a':
+                            Path.st.append([i, a])
+
+            if maze[row][column] == 'a':
+                for i in range(mazeL):
+                    for a in range(mazeo):
+                        if maze[i][a] == 'A':
+                            Path.st.append([i, a])
+
+            if maze[row][column] == 'B':
+                for b in range(mazeL):
+                    for c in range(mazeo):
+                        if maze[b][c] == 'b':
+                            Path.st.append([b, c])
+
+            if maze[row][column] == 'd':
+                for f in range(mazeL):
+                    for g in range(mazeo):
+                        if maze[f][g] == 'D':
+                            Path.st.append([f, g])
+
+            maze[row][column] = '/'
+
+            if row + 1 < mazeL and maze[row+1][column] != 'W' and maze[row+1][column] != '/':
+                Path.st.append([row+1, column])
+
+            if column+1 < len(maze[row]) and maze[row][column+1] != 'W' and maze[row][column+1] != '/':
+                Path.st.append([row, column+1])
+
+            if row - 1 >= 0 and maze[row-1][column] != 'W' and maze[row-1][column] != '/':
+                Path.st.append([row-1, column])
+
+            if column - 1 >= 0 and maze[row][column-1] != 'W' and maze[row][column-1] != '/':
+                Path.st.append([row, column-1])
+
+        return False
+
+    @staticmethod
+    def
